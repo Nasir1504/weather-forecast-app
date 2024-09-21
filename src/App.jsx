@@ -1,16 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 
 //styles
 import './App.scss';
-
-// components
-import LoadingComp from './Components/Loading-Comp/loading-comp';
-import Temperature from './Components/Temperature-Comp/temperature';
-import WeatherCondition from './Components/Weather-Condition-Comp/weather-condition';
-import CityName from './Components/City-Name-Comp/city-name';
-import SearchCity from './Components/Search-City-Comp/search-city';
-import ForecastCard from './Components/Forecast-Card-Comp/forecast-card';
-import ErrorMsg from './Components/Error-Msg-Comp/error-msg';
 
 //fetching data
 import { fetchWeatherData } from './FetchWeatherDataApi/fetchWeatherData';
@@ -22,6 +13,18 @@ import CloudImg from './img/cloud.png';
 import FrameOne from './img/Frame-one.png';
 import FrameTwo from './img/Frame-two.png';
 
+// components
+import LoadingComp from './Components/Loading-Comp/loading-comp';
+// import Temperature from './Components/Temperature-Comp/temperature';
+// import WeatherCondition from './Components/Weather-Condition-Comp/weather-condition';
+import CityName from './Components/City-Name-Comp/city-name';
+import SearchCity from './Components/Search-City-Comp/search-city';
+import ForecastCard from './Components/Forecast-Card-Comp/forecast-card';
+import ErrorMsg from './Components/Error-Msg-Comp/error-msg';
+import { LoadingGif } from './Components/Loading-Comp/loading-comp';
+const Temperature = React.lazy(() => import('./Components/Temperature-Comp/temperature'));
+const WeatherCondition = React.lazy(() => import('./Components/Weather-Condition-Comp/weather-condition'));
+
 
 function App() {
 
@@ -32,30 +35,65 @@ function App() {
   const [trigger, setTrigger] = useState(false)
   const [unit, setUnit] = useState('C');
 
+  const CACHE_DURATION = 15 * 60 * 1000;
 
   // -------------------Data Fetching------------
   useEffect(() => {
-    fetchWeatherData(selectedCity)
-      .then(data => { setWeatherData(data); })
-      .catch(error => console.error('Data Cannot fetch:', error));
+    const cachedCity = localStorage.getItem('lastCity');
+    const cachedWeatherData = localStorage.getItem('weatherData');
+    const cachedForecast = localStorage.getItem('forecastData');
+    const cachedTime = localStorage.getItem('cachedTime');
+    const currentTime = new Date().getTime();
+
+    // console.log(cachedTime)
+    if (
+      cachedCity &&
+      cachedWeatherData &&
+      cachedForecast &&
+      cachedTime &&
+      currentTime - cachedTime < CACHE_DURATION
+    ) {
+      // Use Cashed Data if Avialable
+      setSelectedCity(cachedCity);
+      setWeatherData(JSON.parse(cachedWeatherData));
+      setForecast(JSON.parse(cachedForecast));
+
+    }
+    else {
+      // Fetch New Data
+      fetchWeatherData(selectedCity)
+        .then(data => { setWeatherData(data); })
+        .catch(error => console.error('Data Cannot fetch:', error));
 
 
-    fetchForecast(selectedCity)
-      .then(data => {
-        // ----------------------Getting data between 9am to 12am-----------------------
-        const dailyForecast = data.list.filter(item =>
-          new Date(item.dt * 1000).getHours() >= 9 && new Date(item.dt * 1000).getHours() <= 12
-        );
-        setForecast(dailyForecast);
-      })
-      .catch(error => console.error('Error fetching forecast data:', error));
+      fetchForecast(selectedCity)
+        .then(data => {
+          // ----------------------Getting data between 9am to 12am-----------------------
+          const dailyForecast = data.list.filter(item =>
+            new Date(item.dt * 1000).getHours() >= 9 && new Date(item.dt * 1000).getHours() <= 12
+          );
+          setForecast(dailyForecast);
+        })
+        .catch(error => console.error('Error fetching forecast data:', error));
+    }
+  }, [selectedCity,CACHE_DURATION]);
 
-  }, [selectedCity]);
+   // Caching data on each every update
+   useEffect(() => {
+    if (weatherData && forecast) {
+      localStorage.setItem('lastCity', selectedCity);
+      localStorage.setItem('weatherData', JSON.stringify(weatherData));
+      localStorage.setItem('forecastData', JSON.stringify(forecast));
+      localStorage.setItem('cachedTime', new Date().getTime());
+    }
+    // eslint-disable-next-line
+  }, [weatherData, forecast]);
 
   useEffect(() => {
     setTimeout(() => {
       setTrigger(true)
     }, 500);
+    // eslint-disable-next-line
   }, [])
 
   const handleCitySelect = (selectedCity) => {
@@ -70,7 +108,6 @@ function App() {
   else if (weatherData === '404') {
     return <ErrorMsg />
   }
-
 
   return (
 
@@ -111,7 +148,8 @@ function App() {
         <img className='weather-icon' src={`http://openweathermap.org/img/wn/${weatherData?.weather[0].icon}@2x.png`} alt="weather icon" />
 
         <div className="content-sec">
-          <Temperature
+
+          {/* <Temperature
             temp={weatherData?.main.temp}
             Unit={unit}
             SetUnit={setUnit}
@@ -121,7 +159,25 @@ function App() {
           />
           <WeatherCondition
             condition={weatherData?.weather[0].description}
-          />
+          /> */}
+
+          <Suspense fallback={<LoadingGif />}>
+            <Temperature
+              temp={weatherData?.main.temp}
+              Unit={unit}
+              SetUnit={setUnit}
+            />
+
+          </Suspense>
+
+          <CityName CityName={weatherData?.name} />
+
+          <Suspense fallback={<LoadingGif />}>
+            <WeatherCondition
+              condition={weatherData?.weather[0].description}
+            />
+          </Suspense>
+
         </div>
       </div>
 
