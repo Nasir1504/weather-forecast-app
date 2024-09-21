@@ -44,7 +44,7 @@ export default function SearchCity({
             );
             setCitySuggest(filteredCities);
         } else {
-            setCitySuggest([]); // Clear suggestions if input is empty
+            setCitySuggest([]); 
         }
     }
 

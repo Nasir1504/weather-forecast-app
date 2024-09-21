@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 //styles
 import './unit-conversion.scss';
 
 export default function UnitConversion({
-    Temp
+    Temp,
+    Unit,
+    SetUnit
 }) {
-    const [unit, setUnit] = useState('C');
+    // const [unit, setUnit] = useState('C');
 
     const tempConversion = () => {
-        if (unit === 'C') {
+        if (Unit === 'C') {
             // return `${(Temp * 9 / 5) + 32}°F`;
             return `${Math.round((Temp * 9 / 5) + 32)}°F`;
 
@@ -23,9 +25,9 @@ export default function UnitConversion({
             <p>{tempConversion()}</p>
             <button
                 className='conversion-btn'
-                onClick={() => setUnit(unit === 'C' ? 'F' : 'C')}
+                onClick={() => SetUnit(Unit === 'C' ? 'F' : 'C')}
             >
-                {unit === 'C' ? '°F' : '°C'}
+                {Unit === 'C' ? '°F' : '°C'}
             </button>
         </div>
     )

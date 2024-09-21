@@ -30,6 +30,8 @@ function App() {
   const [weatherData, setWeatherData] = useState(null);
   const [forecast, setForecast] = useState([]);
   const [trigger, setTrigger] = useState(false)
+  const [unit, setUnit] = useState('C');
+
 
   // -------------------Data Fetching------------
   useEffect(() => {
@@ -106,6 +108,8 @@ function App() {
         <div className="content-sec">
           <Temperature
             temp={weatherData?.main.temp}
+            Unit={unit}
+            SetUnit={setUnit}
           />
           <CityName
             CityName={weatherData?.name}
@@ -127,6 +131,8 @@ function App() {
                 HighTemp={day.main.temp_max}
                 LowTemp={day.main.temp_min}
                 Icon={day.weather[0].icon}
+                Unit={unit}
+
 
               />
             )

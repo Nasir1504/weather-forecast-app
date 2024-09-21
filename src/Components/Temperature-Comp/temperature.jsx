@@ -6,12 +6,17 @@ import UnitConversion from '../Unit-Conversion/unit-conversion';
 // styles
 import './temperature.scss';
 
-export default function Temperature({ temp }) {
+export default function Temperature({
+  temp,
+  Unit,
+  SetUnit
+}) {
   return (
     <div className="temperature-main-container">
-      {/* {temp} */}
       <UnitConversion
         Temp={temp}
+        Unit={Unit}
+        SetUnit={SetUnit}
       />
     </div>
   )
