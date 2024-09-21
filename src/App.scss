@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: "Merriweather Sans", sans-serif;
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+
+
+/* @media screen and (max-device-width: 950px) {
+    body {
+        -webkit-text-size-adjust: none;
+    }
+} */
+
+html,
+body {
+    -webkit-text-size-adjust: none;
+    height: 100%;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+.App-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: #757243;
+    overflow: hidden;
+    color: aliceblue;
+    font-size: clamp(0.4rem, 40px, 2rem);
+
+    h1 {
+        position: absolute;
+        top: 10%;
+        color: #fff;
+        font-size: clamp(0.4rem, 4rem, 4.2rem);
+        // z-index: 3;
+        text-shadow: 0.1em 0.1em 4px #00000080;
+        transition: 1.6s cubic-bezier(.15,.84,.18,.98) 0s;
+        transform: translateY(450%);
+    }
+
+    .bg-frame-one,
+    .bg-frame-two {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .bg-frame-one {
+        z-index: 0;
+    }
+
+    .bg-frame-two {
+        z-index: 2;
+    }
+
+    .cloud-one,
+    .cloud-two {
+        position: absolute;
+        width: 50%;
+        z-index: 3;
+        opacity: 0.8;
+    }
+
+    .cloud-one {
+        left: -20%;
+        transition: 1.6s cubic-bezier(.15,.84,.18,.98) 0.5s;
+        transform: translate(-100%);
+    }
+
+    .cloud-two {
+        right: -20%;
+        transition: 1.6s cubic-bezier(.15,.84,.18,.98) 0.5s;
+        transform: translate(100%);
+    }
+
+    .search-result-sec {
+        position: absolute;
+        width: 20%;
+        aspect-ratio: 2/1;
+        top: 20%;
+        left: 0%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // border: 1px solid #000;
+        z-index: 3;
+
+
+        .weather-icon {
+            width: 40%;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+
+        .content-sec {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+    }
+
+    .forecast-section {
+        position: absolute;
+        top: 60%;
+        display: flex;
+        width: 550px;
+        aspect-ratio: 4/1;
+        // border: 1px solid #fff;
+        justify-content: center;
+        align-items: center;
+        gap: 5%;
+        z-index: 3;
+
+    }
+}
+
+//--------------------------  max-width: 600px  --------------------------------------
+
+@media only screen and (max-width: 600px) {}

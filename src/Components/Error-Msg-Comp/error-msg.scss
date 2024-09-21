@@ -1,0 +1,34 @@
+.error-msg-main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    backdrop-filter: blur(20px);
+
+    .error-img {
+        width: 80%;
+        object-fit: contain;
+    }
+
+    .go-back-btn {
+        position: absolute;
+        width: 15%;
+        aspect-ratio: 3/1;
+        background-color: #d1eef63d;
+        border: none;
+        border-radius: 100px;
+        // box-shadow: 2px 2px 4px #000;
+        border: 1px solid #000;
+        backdrop-filter: blur(10px);
+        color: #000;
+        font-size: clamp(0.4rem, 1.2rem, 1.4rem);
+        cursor: pointer;
+
+    }
+}
