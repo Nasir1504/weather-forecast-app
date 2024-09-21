@@ -18,13 +18,13 @@
     .input-city {
         position: relative;
         width: 100%;
-        font-size: clamp(0.4rem, 1.2rem, 1.4rem);
+        font-size: 1.2rem;
         font-weight: 300;
         background: none;
         // border: 1px solid #fff;
         color: #000;
         border: none;
-        padding: 0 10px 0 1em;
+        padding: 0 0.8em 0 1em;
         outline: none;
     }
 
@@ -35,7 +35,7 @@
         height: 85%;
         border-radius: 50px;
         border: none;
-        font-size: clamp(0.4rem, 1rem, 1.2rem);
+        font-size: 1rem;
         text-transform: uppercase;
         box-shadow: 0.1vw 0.2vw 4px #00000086;
         cursor: pointer;
@@ -49,17 +49,56 @@
         display: flex;
         flex-direction: column;
         gap: 8%;
-        background-color: #d9d9d962;
-        backdrop-filter: blur(10px);
+        background-color: #d9d9d9e8;
         list-style-type: none;
         overflow-y: scroll;
         color: #000000c4;
         padding: 2%;
 
         .cities {
-            font-size: clamp(0.4rem, 1rem, 1.2rem);
-
+            font-size: 1rem;
 
         }
     }
+}
+
+
+//--------------------------  media  --------------------------------------
+
+@media only screen and (max-width: 480px) {
+    .search-city-main-cntainer {
+        margin-top: -15%;
+    }
+}
+
+
+@media only screen and (min-width: 481px) and (max-width: 1200px) {
+    .search-city-main-cntainer {
+        margin-top: 5%;
+        width: 380px;
+        aspect-ratio: 9/1;
+
+        .input-city {
+            font-size: 1rem;
+        }
+
+        .search-btn {
+            font-size: 0.85rem;
+        }
+
+        .city-list {
+            position: absolute;
+            top: 110%;
+            width: 100%;
+            height: 180px;
+
+            .cities {
+                font-size: 0.8rem;
+
+
+            }
+        }
+    }
+
+
 }

@@ -49,7 +49,7 @@ body {
         font-size: clamp(0.4rem, 4rem, 4.2rem);
         // z-index: 3;
         text-shadow: 0.1em 0.1em 4px #00000080;
-        transition: 1.6s cubic-bezier(.15,.84,.18,.98) 0s;
+        transition: 1.6s cubic-bezier(.15, .84, .18, .98) 0s;
         transform: translateY(450%);
     }
 
@@ -72,20 +72,20 @@ body {
     .cloud-one,
     .cloud-two {
         position: absolute;
-        width: 50%;
-        z-index: 3;
+        width: 850px;
+        z-index: 2;
         opacity: 0.8;
     }
 
     .cloud-one {
         left: -20%;
-        transition: 1.6s cubic-bezier(.15,.84,.18,.98) 0.5s;
+        transition: 1.6s cubic-bezier(.15, .84, .18, .98) 0.5s;
         transform: translate(-100%);
     }
 
     .cloud-two {
         right: -20%;
-        transition: 1.6s cubic-bezier(.15,.84,.18,.98) 0.5s;
+        transition: 1.6s cubic-bezier(.15, .84, .18, .98) 0.5s;
         transform: translate(100%);
     }
 
@@ -127,11 +127,136 @@ body {
         justify-content: center;
         align-items: center;
         gap: 5%;
-        z-index: 3;
+        z-index: 2;
 
     }
 }
 
-//--------------------------  max-width: 600px  --------------------------------------
+//--------------------------  max-width: 480px  --------------------------------------
 
-@media only screen and (max-width: 600px) {}
+@media only screen and (max-width: 480px) {
+    .App-main {
+
+        .bg-frame-one,
+        .bg-frame-two {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cloud-one,
+        .cloud-two {
+            width: 380px;
+        }
+
+        .cloud-one {
+            top: 40%;
+
+        }
+
+        .cloud-two {
+            top: 20%;
+
+        }
+
+        h1 {
+            font-size: 2rem;
+            transform: translateY(850%);
+
+        }
+        .search-result-sec {
+            width: 40%;
+            aspect-ratio: 2/1;
+
+            .weather-icon {
+                width: 50%;
+            }
+        }
+
+        .forecast-section {
+            width: 100%;
+            aspect-ratio: 3/1;
+            top: 60%;
+            flex-wrap: wrap;
+        }
+    }
+}
+
+
+//--------------------------  min-width: 480px  / max-width: 680px --------------------------------------
+
+@media only screen and (min-width: 481px) and (max-width: 680px) {
+    .App-main {
+
+        .cloud-one,
+        .cloud-two {
+            width: 380px;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        .forecast-section {
+            width: 380px;
+            top: 65%;
+        }
+
+
+    }
+}
+
+//--------------------------  min-width: 680px  / max-width: 980px --------------------------------------
+
+@media only screen and (min-width: 681px) and (max-width: 980px) {
+    .App-main {
+
+        .cloud-one,
+        .cloud-two {
+            width: 500px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        .forecast-section {
+            width: 400px;
+            top: 65%;
+        }
+    }
+}
+
+
+//--------------------------  min-width: 981px  / max-width: 1200px --------------------------------------
+
+@media only screen and (min-width: 981px) and (max-width: 1200px) {
+    .App-main {
+
+        .cloud-one,
+        .cloud-two {
+            width: 600px;
+        }
+
+        h1 {
+            font-size: 3rem;
+        }
+
+        .forecast-section {
+            width: 450px;
+            top: 70%;
+        }
+    }
+}
+
+
+
+
+//--------------------------  min-width: 1201px  / max-width: 1600px --------------------------------------
+
+// @media only screen and (min-width: 1201px) and (max-width: 1600px) {}
+
+//--------------------------  min-width: 1601px  --------------------------------------
+
+// @media only screen and (min-width: 1601px) {}

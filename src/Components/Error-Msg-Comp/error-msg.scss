@@ -18,7 +18,7 @@
 
     .go-back-btn {
         position: absolute;
-        width: 15%;
+        width: 220px;
         aspect-ratio: 3/1;
         background-color: #d1eef63d;
         border: none;
@@ -27,8 +27,32 @@
         border: 1px solid #000;
         backdrop-filter: blur(10px);
         color: #000;
-        font-size: clamp(0.4rem, 1.2rem, 1.4rem);
+        font-size: 1.2rem;
         cursor: pointer;
 
     }
+}
+
+
+
+//--------------------------  media  --------------------------------------
+
+@media only screen and (max-width: 480px) {
+    .error-msg-main {
+        .error-img {
+            width: 100%;
+            object-fit: contain;
+        }
+    
+        .go-back-btn {
+            position: absolute;
+            top: 70%;
+            width: 55%;
+            aspect-ratio: 4/1;
+            font-size: 1.2rem;
+           
+    
+        }
+    }
+    
 }

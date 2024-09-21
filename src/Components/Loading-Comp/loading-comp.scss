@@ -6,14 +6,19 @@
     height: 100vh;
     z-index: 5;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #3E5975;
     backdrop-filter: blur(20px);
 
     .loading-img {
-        width: 5vw;
-        height: 5vw;
+        width: 150px;
+        object-fit: contain;
+    }
+
+    .loading-gif {
+        width: 250px;
         object-fit: contain;
     }
 }

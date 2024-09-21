@@ -1,5 +1,5 @@
 .city-name-main-container {
-    font-size: clamp(0.4rem, 1.2rem, 1.4rem);
+    font-size: 1.2rem;
     z-index: 1;
     margin-top: 15%;
     font-weight: 300;
@@ -8,4 +8,10 @@
     justify-content: flex-start;
     align-items: center;
 
+}
+
+@media only screen and (min-width: 481px) and (max-width: 1200px) {
+    .city-name-main-container {
+        font-size: 1rem
+    }
 }
