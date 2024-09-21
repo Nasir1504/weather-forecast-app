@@ -42,6 +42,7 @@ function App() {
 
     fetchForecast(selectedCity)
       .then(data => {
+        // ----------------------Getting data between 9am to 12am-----------------------
         const dailyForecast = data.list.filter(item =>
           new Date(item.dt * 1000).getHours() >= 9 && new Date(item.dt * 1000).getHours() <= 12
         );
@@ -60,7 +61,7 @@ function App() {
   const handleCitySelect = (selectedCity) => {
     setSelectedCity(selectedCity);
   };
-  // console.log(weatherData)
+  // console.log(weatherData.weather)
 
   // --------------------Error Handling------------------
   if (!weatherData) {
@@ -99,9 +100,13 @@ function App() {
         }}
       >Weather Companion</h1>
 
+      {/* -------------------Search Bar Comp--------------------- */}
+
       <SearchCity
         onCitySelect={handleCitySelect}
       />
+
+
       <div className="search-result-sec">
         <img className='weather-icon' src={`http://openweathermap.org/img/wn/${weatherData?.weather[0].icon}@2x.png`} alt="weather icon" />
 
@@ -119,6 +124,10 @@ function App() {
           />
         </div>
       </div>
+
+
+      {/* -------------------Forecast Comp--------------------- */}
+
       <div className='forecast-section'>
         {
           forecast?.map((day, i) => {
@@ -132,7 +141,6 @@ function App() {
                 LowTemp={day.main.temp_min}
                 Icon={day.weather[0].icon}
                 Unit={unit}
-
 
               />
             )
