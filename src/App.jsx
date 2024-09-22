@@ -12,6 +12,9 @@ import { fetchForecast } from './FetchWeatherDataApi/fetchForecast';
 import CloudImg from './img/cloud.png';
 import FrameOne from './img/Frame-one.png';
 import FrameTwo from './img/Frame-two.png';
+import errorImg from './img/error-img.png';
+import errorImg2 from './img/error2-img.png';
+
 
 // components
 import LoadingComp from './Components/Loading-Comp/loading-comp';
@@ -34,6 +37,7 @@ function App() {
   const [forecast, setForecast] = useState([]);
   const [trigger, setTrigger] = useState(false)
   const [unit, setUnit] = useState('C');
+  const [error, setError] = useState(null);
 
   const CACHE_DURATION = 5 * 60 * 1000; //5 seconds
 
@@ -51,22 +55,40 @@ function App() {
       selectedCity !== cachedCity || //New city is selected
       currentTime - cachedTime > CACHE_DURATION
     ) {
+
       fetchWeatherData(selectedCity)
-        .then(data => setWeatherData(data))
-        .catch(error => console.error('Data Cannot fetch:', error));
+        .then(data => {
+          if (data.error) {
+            setError(data.error);  // Set error message if fetching failed
+          } else {
+            setWeatherData(data);
+            setError(null);
+          }
+        })
+        .catch(error => setError('Unable to fetch weather data.'));
+
+      // ---------------------------------------------
 
       fetchForecast(selectedCity)
         .then(data => {
-          const dailyForecast = data.list.filter(item =>
-            new Date(item.dt * 1000).getHours() >= 9 && new Date(item.dt * 1000).getHours() <= 12
-          );
-          setForecast(dailyForecast);
+          if (data.error) {
+            setError(data.error);  // Set error message if fetching failed
+          } else {
+            const dailyForecast = data.list.filter(item =>
+              new Date(item.dt * 1000).getHours() >= 9 && new Date(item.dt * 1000).getHours() <= 12
+            );
+            setForecast(dailyForecast);
+            setError(null);  // Clear previous errors
+          }
         })
-        .catch(error => console.error('Error fetching forecast data:', error));
+        .catch(error => setError('Error fetching forecast data.'));
+
+      // -----------------------------------------------------------------
     } else {
-      // Using cache here and when city hasn't changed
+      // Using cached data while city hasn't changed
       setWeatherData(JSON.parse(cachedWeatherData));
       setForecast(JSON.parse(cachedForecast));
+      setError(null);
     }
     // eslint-disable-next-line
 
@@ -96,12 +118,18 @@ function App() {
   // console.log(weatherData.weather)
 
   // --------------------Error Handling------------------
+  if (error) {
+    return <ErrorMsg ImgURL={errorImg2} />;
+  }
+
   if (!weatherData) {
     return <LoadingComp />;
   }
   else if (weatherData === '404') {
-    return <ErrorMsg />
+    return <ErrorMsg ImgURL={errorImg} />
   }
+
+
   // =======================================================
 
   return (

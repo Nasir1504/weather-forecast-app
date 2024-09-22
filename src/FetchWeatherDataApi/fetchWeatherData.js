@@ -1,26 +1,27 @@
 export const fetchWeatherData = async (cityName) => {
     const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
-// console.log(process.env.REACT_APP_WEATHER_API_KEY)
-
+  
+    // Check if offline
+    if (!navigator.onLine) {
+      return { error: 'You are offline. Please check your internet connection.' };
+    }
+  
     try {
-        const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`);
-        const data = await res.json();
-        if (!res.ok) {
-            if (res.status === 404) {
-                // throw new Error('City not found');
-                return data.cod;
-            } else {
-                throw new Error('Something went wrong, please try again later!')
-            }
+      const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`);
+      const data = await res.json();
+      
+      if (!res.ok) {
+        if (res.status === 404) {
+          return data.cod;
+        } else {
+          throw new Error('Something went wrong, please try again later!');
         }
-
-        return data;
-    } catch (e) { return { e: e.message } }
-}
-
-
-
-
+      }
+      return data;
+    } catch (e) {
+      return { error: e.message };
+    }
+  };
 
 
 // export const fetchWeatherData = async (cityName) => {
