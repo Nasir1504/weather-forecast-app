@@ -76,10 +76,10 @@ function App() {
         })
         .catch(error => console.error('Error fetching forecast data:', error));
     }
-  }, [selectedCity,CACHE_DURATION]);
+  }, [selectedCity, CACHE_DURATION]);
 
-   // Caching data on each every update
-   useEffect(() => {
+  // Caching data on each every update
+  useEffect(() => {
     if (weatherData && forecast) {
       localStorage.setItem('lastCity', selectedCity);
       localStorage.setItem('weatherData', JSON.stringify(weatherData));
@@ -108,6 +108,7 @@ function App() {
   else if (weatherData === '404') {
     return <ErrorMsg />
   }
+  // =======================================================
 
   return (
 
