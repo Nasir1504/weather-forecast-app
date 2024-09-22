@@ -150,18 +150,6 @@ function App() {
 
         <div className="content-sec">
 
-          {/* <Temperature
-            temp={weatherData?.main.temp}
-            Unit={unit}
-            SetUnit={setUnit}
-          />
-          <CityName
-            CityName={weatherData?.name}
-          />
-          <WeatherCondition
-            condition={weatherData?.weather[0].description}
-          /> */}
-
           <Suspense fallback={<LoadingGif />}>
             <Temperature
               temp={weatherData?.main.temp}
