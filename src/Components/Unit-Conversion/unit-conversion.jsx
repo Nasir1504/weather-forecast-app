@@ -27,7 +27,7 @@ export default function UnitConversion({
                 className='conversion-btn'
                 onClick={() => SetUnit(Unit === 'C' ? 'F' : 'C')}
             >
-                {Unit === 'C' ? '°F' : '°C'}
+                {Unit === 'C' ? '°C' : '°F'}
             </button>
         </div>
     )
