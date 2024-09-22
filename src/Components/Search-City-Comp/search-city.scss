@@ -65,7 +65,38 @@
 
 //--------------------------  media  --------------------------------------
 
-@media only screen and (max-width: 480px) {
+@media only screen and  (max-width: 425px) {
+    .search-city-main-cntainer {
+        margin-top: 5%;
+        width: 300px;
+        aspect-ratio: 9/1;
+
+        .input-city {
+            font-size: 0.85rem;
+        }
+
+        .search-btn {
+            font-size: 0.75rem;
+        }
+
+        .city-list {
+            position: absolute;
+            top: 110%;
+            width: 100%;
+            height: 150px;
+
+            .cities {
+                font-size: 0.75rem;
+
+
+            }
+        }
+    }
+
+
+}
+
+@media only screen and (min-width: 425px) and (max-width: 480px) {
     .search-city-main-cntainer {
         margin-top: -15%;
     }

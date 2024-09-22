@@ -35,9 +35,9 @@ function App() {
   const [trigger, setTrigger] = useState(false)
   const [unit, setUnit] = useState('C');
 
-  const CACHE_DURATION = 15 * 60 * 1000;
+  const CACHE_DURATION = 5 * 60 * 1000; //5 seconds
 
-  // -------------------Data Fetching------------
+  // -------------------Data Fetching with Cache Logic------------
   useEffect(() => {
     const cachedCity = localStorage.getItem('lastCity');
     const cachedWeatherData = localStorage.getItem('weatherData');
@@ -45,37 +45,31 @@ function App() {
     const cachedTime = localStorage.getItem('cachedTime');
     const currentTime = new Date().getTime();
 
-    // console.log(cachedTime)
+
     if (
-      cachedCity &&
-      cachedWeatherData &&
-      cachedForecast &&
-      cachedTime &&
-      currentTime - cachedTime < CACHE_DURATION
+      !cachedCity ||
+      selectedCity !== cachedCity || //New city is selected
+      currentTime - cachedTime > CACHE_DURATION
     ) {
-      // Use Cashed Data if Avialable
-      setSelectedCity(cachedCity);
-      setWeatherData(JSON.parse(cachedWeatherData));
-      setForecast(JSON.parse(cachedForecast));
-
-    }
-    else {
-      // Fetch New Data
       fetchWeatherData(selectedCity)
-        .then(data => { setWeatherData(data); })
+        .then(data => setWeatherData(data))
         .catch(error => console.error('Data Cannot fetch:', error));
-
 
       fetchForecast(selectedCity)
         .then(data => {
-          // ----------------------Getting data between 9am to 12am-----------------------
           const dailyForecast = data.list.filter(item =>
             new Date(item.dt * 1000).getHours() >= 9 && new Date(item.dt * 1000).getHours() <= 12
           );
           setForecast(dailyForecast);
         })
         .catch(error => console.error('Error fetching forecast data:', error));
+    } else {
+      // Using cache here and when city hasn't changed
+      setWeatherData(JSON.parse(cachedWeatherData));
+      setForecast(JSON.parse(cachedForecast));
     }
+    // eslint-disable-next-line
+
   }, [selectedCity, CACHE_DURATION]);
 
   // Caching data on each every update
