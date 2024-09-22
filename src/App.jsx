@@ -42,6 +42,7 @@ function App() {
   const CACHE_DURATION = 5 * 60 * 1000; //5 seconds
 
   // -------------------Data Fetching with Cache Logic------------
+
   useEffect(() => {
     const cachedCity = localStorage.getItem('lastCity');
     const cachedWeatherData = localStorage.getItem('weatherData');
@@ -49,7 +50,23 @@ function App() {
     const cachedTime = localStorage.getItem('cachedTime');
     const currentTime = new Date().getTime();
 
+    // console.log(!navigator.onLine)
+    
+    // Check if the user is offline
+    if (!navigator.onLine) {
 
+      // If offline and cached data is available, use cached data
+      if (cachedWeatherData && cachedForecast) {
+        setWeatherData(JSON.parse(cachedWeatherData));
+        setForecast(JSON.parse(cachedForecast));
+      } else {
+        // Show error if no cached data available
+        setError('You are offline, and no cached data is available.');
+      }
+      return;
+    }
+
+    // Fetch new data if online
     if (
       !cachedCity ||
       selectedCity !== cachedCity || //New city is selected
@@ -90,9 +107,10 @@ function App() {
       setForecast(JSON.parse(cachedForecast));
       setError(null);
     }
-    // eslint-disable-next-line
 
+    // eslint-disable-next-line
   }, [selectedCity, CACHE_DURATION]);
+
 
   // Caching data on each every update
   useEffect(() => {
@@ -101,6 +119,7 @@ function App() {
       localStorage.setItem('weatherData', JSON.stringify(weatherData));
       localStorage.setItem('forecastData', JSON.stringify(forecast));
       localStorage.setItem('cachedTime', new Date().getTime());
+      
     }
     // eslint-disable-next-line
   }, [weatherData, forecast]);
