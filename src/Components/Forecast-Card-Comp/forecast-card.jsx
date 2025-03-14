@@ -5,6 +5,7 @@ import './forecast-card.scss';
 
 export default function ForecastCard({
     Day,
+    Date,
     HighTemp,
     LowTemp,
     Icon,
@@ -28,7 +29,8 @@ export default function ForecastCard({
                 display: ID === 0 && 'none'
             }}
         >
-            <p>{Day}</p>
+            <p>{Date}</p>
+            <p  className='day'>{Day}</p>
             <img src={`https://openweathermap.org/img/wn/${Icon}.png`} alt="weather icon" />
 
             <p>H: {tempConversion(HighTemp)}</p>

@@ -12,16 +12,28 @@
     border-radius: 0.6em;
 
 
+    .day{
+        margin-top: 5%;
+        font-size: 0.8rem;
+
+    }
+
+
 }
 
 //--------------------------  media  --------------------------------------
 
 @media only screen and  (max-width: 425px) {
     .forecast-card-main-container {
-        width: 40%;
+        width: 25%;
         font-size: 0.9rem;
         background-color: #ffffff94;
         border-radius: 0.8em;
+
+        .day{
+            font-size: 0.7rem;
+    
+        }
 
     }
 
@@ -31,11 +43,15 @@
 
 @media only screen and (min-width: 425px) and (max-width: 480px) {
     .forecast-card-main-container {
-        width: 40%;
+        width: 26%;
         font-size: 1.2rem;
         background-color: #ffffff94;
         border-radius: 0.8em;
 
+        .day{
+            font-size: 1rem;
+    
+        }
     }
 
 }
@@ -44,6 +60,10 @@
     .forecast-card-main-container {
         font-size: 0.5rem;
 
+        .day{
+            font-size: 0.3rem;
+    
+        }
     }
 
 }
@@ -54,6 +74,10 @@
     .forecast-card-main-container {
         font-size: 0.6rem;
 
+        .day{
+            font-size: 0.4rem;
+    
+        }
     }
 
 }
@@ -63,6 +87,10 @@
     .forecast-card-main-container {
         font-size: 0.8rem;
 
+        .day{
+            font-size: 0.6rem;
+    
+        }
     }
 
 

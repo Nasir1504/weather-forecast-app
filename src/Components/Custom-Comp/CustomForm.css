@@ -1,0 +1,81 @@
+/* Form container */
+.zf-templateWrapper {
+    width: 100%;
+    margin: 0 auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.zf-templateWidth {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.zf-tempHeadContBdr {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 2px solid #ccc;
+}
+
+.zf-frmTitle {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.zf-frmDesc {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.zf-tempFrmWrapper {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.zf-tempContDiv {
+    margin-bottom: 15px;
+}
+
+.zf-labelName {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+}
+
+.zf-form-sBox {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.zf-submitColor {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.zf-submitColor:hover {
+    background-color: #45a049;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .zf-templateWidth {
+        width: 90%;
+    }
+
+    .zf-tempHeadContBdr {
+        padding: 15px;
+    }
+}

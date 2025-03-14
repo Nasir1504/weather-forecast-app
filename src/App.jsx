@@ -51,7 +51,7 @@ function App() {
     const currentTime = new Date().getTime();
 
     // console.log(!navigator.onLine)
-    
+
     // Check if the user is offline
     if (!navigator.onLine) {
 
@@ -91,11 +91,28 @@ function App() {
           if (data.error) {
             setError(data.error);  // Set error message if fetching failed
           } else {
-            const dailyForecast = data.list.filter(item =>
-              new Date(item.dt * 1000).getHours() >= 9 && new Date(item.dt * 1000).getHours() <= 12
-            );
-            setForecast(dailyForecast);
+            // const dailyForecast = data.list.filter(item =>
+            //   new Date(item.dt * 1000).getHours() >= 9 && new Date(item.dt * 1000).getHours() <= 12
+            // );
+            // setForecast(dailyForecast);
+            // setError(null);  // Clear previous errors
+
+
+
+            const groupedByDate = {};
+
+            data.list.forEach(item => {
+              const date = new Date(item.dt * 1000).toDateString(); // Get only the date part
+              const hour = new Date(item.dt * 1000).getHours();
+
+              if (!groupedByDate[date] || (hour >= 9 && hour <= 12)) {
+                groupedByDate[date] = item; // Store preferred time or first available
+              }
+            });
+
+            setForecast(Object.values(groupedByDate));
             setError(null);  // Clear previous errors
+
           }
         })
         .catch(error => setError('Error fetching forecast data.'));
@@ -119,11 +136,14 @@ function App() {
       localStorage.setItem('weatherData', JSON.stringify(weatherData));
       localStorage.setItem('forecastData', JSON.stringify(forecast));
       localStorage.setItem('cachedTime', new Date().getTime());
-      
+
     }
     // eslint-disable-next-line
   }, [weatherData, forecast]);
 
+
+
+  // custom animation trigger at start
   useEffect(() => {
     setTimeout(() => {
       setTrigger(true)
@@ -148,9 +168,12 @@ function App() {
     return <ErrorMsg ImgURL={errorImg} />
   }
 
+  const today = new Date();
+  const options = { weekday: 'long', day: 'numeric', year: 'numeric' };
+  const formattedDate = today.toLocaleDateString('en-US', options);
 
   // =======================================================
-
+  // console.log(formattedDate)
   return (
 
     <div className="App-main">
@@ -173,11 +196,14 @@ function App() {
           transform: trigger && 'translate(0)'
         }}
       />
+      <h3 className='current-data'>{formattedDate}</h3>
+
       <h1
         style={{
           transform: trigger && 'translate(0)'
         }}
       >Weather Companion</h1>
+
 
       {/* -------------------Search Bar Comp--------------------- */}
 
@@ -190,6 +216,7 @@ function App() {
         <img className='weather-icon' src={`http://openweathermap.org/img/wn/${weatherData?.weather[0].icon}@2x.png`} alt="weather icon" />
 
         <div className="content-sec">
+          <h3>{formattedDate}</h3>
 
           <Suspense fallback={<LoadingGif />}>
             <Temperature
@@ -221,6 +248,8 @@ function App() {
               <ForecastCard
                 key={i}
                 Day={new Date(day.dt * 1000).toLocaleDateString('en-US', { weekday: 'long' })}
+                Date={new Date(day.dt * 1000).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric' })}
+
                 // Day={new Date(day.dt * 1000).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                 ID={i}
                 HighTemp={day.main.temp_max}
