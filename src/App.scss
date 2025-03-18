@@ -139,7 +139,14 @@ body {
             flex-direction: column;
             justify-content: center;
             align-items: center;
+
             // border: 1px solid #000;
+            h4 {
+                color: aliceblue;
+                font-size: clamp(0.4rem, 1.9rem, 2.4rem);
+                font-weight: 500;
+                margin-bottom: 0.1em;
+            }
 
             h3 {
                 width: 100%;
@@ -148,7 +155,6 @@ body {
                 font-weight: 300;
                 z-index: 1;
                 // text-shadow: 0.1em 0.1em 4px #00000080;
-                -webkit-text-stroke: 0.2px #fff;
                 margin-bottom: 8%;
                 // text-align: left;
                 // border: 1px solid #000;
@@ -201,6 +207,9 @@ body {
             top: 20%;
 
         }
+        .current-data{
+            display: block;
+        }
 
         h1 {
             font-size: 2rem;
@@ -213,7 +222,7 @@ body {
             aspect-ratio: 2/1;
             top: 25%;
 
-            h3 {
+            h4,h3 {
                 display: none;
             }
 
@@ -276,8 +285,12 @@ body {
             width: 50%;
             aspect-ratio: 2/1;
 
-            h3 {
-                display: none;
+            .content-sec {
+
+                h4,
+                h3 {
+                    display: none;
+                }
             }
 
             .weather-icon {
@@ -314,8 +327,14 @@ body {
         }
 
         .search-result-sec {
-            h3 {
-                display: none;
+            width: 35%;
+            top: 20%;
+            .content-sec {
+
+                h4,
+                h3 {
+                    display: none;
+                }
             }
         }
 

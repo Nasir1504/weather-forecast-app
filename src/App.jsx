@@ -169,8 +169,10 @@ function App() {
   }
 
   const today = new Date();
-  const options = { weekday: 'long', day: 'numeric', year: 'numeric' };
-  const formattedDate = today.toLocaleDateString('en-US', options);
+  // const options = { weekday: 'long', day: 'numeric', year: 'numeric' };
+  // const formattedDate = today.toLocaleDateString('en-US', options);
+  const formattedDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  const weekday = today.toLocaleDateString('en-US', { weekday: 'long' });
 
   // =======================================================
   // console.log(formattedDate)
@@ -196,7 +198,7 @@ function App() {
           transform: trigger && 'translate(0)'
         }}
       />
-      <h3 className='current-data'>{formattedDate}</h3>
+      <h3 className='current-data'>({weekday})&nbsp;&nbsp;{formattedDate}</h3>
 
       <h1
         style={{
@@ -216,6 +218,7 @@ function App() {
         <img className='weather-icon' src={`http://openweathermap.org/img/wn/${weatherData?.weather[0].icon}@2x.png`} alt="weather icon" />
 
         <div className="content-sec">
+          <h4>{weekday}</h4>
           <h3>{formattedDate}</h3>
 
           <Suspense fallback={<LoadingGif />}>
